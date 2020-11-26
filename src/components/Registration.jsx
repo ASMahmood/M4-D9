@@ -1,4 +1,3 @@
-import { List } from "@material-ui/core";
 import React from "react";
 import { Form, Col, Container, Row, Button, ListGroup } from "react-bootstrap";
 
@@ -30,13 +29,24 @@ class Registration extends React.Component {
       const audio = document.getElementById("audio");
       audio.play();
     }
+    if (this.state.form.address.toLowerCase().includes("virginia")) {
+      const audio = document.getElementById("audio2");
+      audio.play();
+    }
   };
-
+  goBackToForm = (e) => {
+    e.preventDefault();
+    document.querySelector("#registerForm").classList.remove("d-none");
+    document.querySelector("#presentedInfo").classList.add("d-none");
+  };
   render() {
     return (
       <Container>
         <audio hidden id="audio" controls>
           <source src={"/yeet.mp3"} type="audio/mp3"></source>
+        </audio>
+        <audio hidden id="audio2" controls>
+          <source src={"/stepbro.mp3"} type="audio/mp3"></source>
         </audio>
         <Row>
           <h1 className="my-3">Registration Form:</h1>
@@ -187,23 +197,44 @@ class Registration extends React.Component {
             </Form.Group>
           </Form.Row>
         </Form>
-        <Row id="presentedInfo" className="d-none">
-          <ListGroup>
-            <ListGroup.Item>Name: {this.state.form.name}</ListGroup.Item>
-            <ListGroup.Item>Surname: {this.state.form.surname}</ListGroup.Item>
-            <ListGroup.Item>Email: {this.state.form.email}</ListGroup.Item>
-            <ListGroup.Item>
-              password: {this.state.form.password}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Year of Birth: {this.state.form.dob}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Address: {this.state.form.address}, {this.state.form.city},{" "}
-              {this.state.form.postcode}
-            </ListGroup.Item>
-          </ListGroup>
-        </Row>
+        <Container id="presentedInfo" className="d-none">
+          <Row>
+            <ListGroup className="w-100 mb-5">
+              <ListGroup.Item variant="dark">
+                Name: {this.state.form.name}
+              </ListGroup.Item>
+              <ListGroup.Item variant="danger">
+                Surname: {this.state.form.surname}
+              </ListGroup.Item>
+              <ListGroup.Item variant="dark">
+                Email: {this.state.form.email}
+              </ListGroup.Item>
+              <ListGroup.Item variant="danger">
+                password: {this.state.form.password}
+              </ListGroup.Item>
+              <ListGroup.Item variant="dark">
+                Year of Birth: {this.state.form.dob}
+              </ListGroup.Item>
+              <ListGroup.Item variant="danger">
+                Address: {this.state.form.address}, {this.state.form.city},{" "}
+                {this.state.form.postcode}
+              </ListGroup.Item>
+            </ListGroup>
+          </Row>
+          <Row>
+            <Col>
+              <Button
+                className="w-100"
+                variant="danger"
+                onClick={(e) => this.goBackToForm(e)}
+              >
+                {this.state.form.name.toLowerCase().includes("stefano")
+                  ? "Would you like to make changes, Stefano?"
+                  : "Would you like to make changes?"}
+              </Button>
+            </Col>
+          </Row>
+        </Container>
       </Container>
     );
   }
