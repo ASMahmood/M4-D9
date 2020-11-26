@@ -1,5 +1,6 @@
+import { List } from "@material-ui/core";
 import React from "react";
-import { Form, Col, Container, Row, Button } from "react-bootstrap";
+import { Form, Col, Container, Row, Button, ListGroup } from "react-bootstrap";
 
 class Registration extends React.Component {
   state = {
@@ -23,14 +24,24 @@ class Registration extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log("submitted", this.state.form);
+    document.querySelector("#registerForm").classList.add("d-none");
+    document.querySelector("#presentedInfo").classList.remove("d-none");
+    if (this.state.form.name.toLowerCase().includes("stefano")) {
+      const audio = document.getElementById("audio");
+      audio.play();
+    }
   };
+
   render() {
     return (
       <Container>
+        <audio hidden id="audio" controls>
+          <source src={"/yeet.mp3"} type="audio/mp3"></source>
+        </audio>
         <Row>
           <h1 className="my-3">Registration Form:</h1>
         </Row>
-        <Form onSubmit={this.handleSubmit}>
+        <Form id="registerForm" onSubmit={this.handleSubmit}>
           <Form.Row>
             <Form.Group as={Col}>
               <Form.Label htmlFor="name">Name</Form.Label>
@@ -155,12 +166,44 @@ class Registration extends React.Component {
           </Form.Row>
           <Form.Row>
             <Form.Group as={Col}>
-              <Button variant="danger" type="submit" className="w-100">
+              <Button
+                id="submitRegister"
+                variant="danger"
+                type="submit"
+                className="w-100"
+                disabled
+              >
                 SUBMIT TO THE SEXY, STEFANO
               </Button>
+              {this.state.form.name.length > 1 &&
+                this.state.form.surname.length > 2 &&
+                this.state.form.email.includes("@") &&
+                this.state.form.password.length > 8 &&
+                this.state.form.dob > 1910 &&
+                this.state.form.address.value !== "" &&
+                this.state.form.city.value !== "" &&
+                this.state.form.postcode.length === 5 &&
+                (document.querySelector("#submitRegister").disabled = false)}
             </Form.Group>
           </Form.Row>
         </Form>
+        <Row id="presentedInfo" className="d-none">
+          <ListGroup>
+            <ListGroup.Item>Name: {this.state.form.name}</ListGroup.Item>
+            <ListGroup.Item>Surname: {this.state.form.surname}</ListGroup.Item>
+            <ListGroup.Item>Email: {this.state.form.email}</ListGroup.Item>
+            <ListGroup.Item>
+              password: {this.state.form.password}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Year of Birth: {this.state.form.dob}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Address: {this.state.form.address}, {this.state.form.city},{" "}
+              {this.state.form.postcode}
+            </ListGroup.Item>
+          </ListGroup>
+        </Row>
       </Container>
     );
   }
