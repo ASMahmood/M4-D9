@@ -1,16 +1,19 @@
 import React from "react";
 
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Container } from "react-bootstrap";
+import "./App.css";
+
+import { BrowserRouter, Route } from "react-router-dom";
+
 import DynamicGallery from "./components/DynamicGallery";
 import NavBar from "./components/NavBar";
 import CommentArea from "./components/CommentArea";
 import Footer from "./components/Footer";
-import { Container } from "react-bootstrap";
 import FixedGallery from "./components/FixedGallery";
-import { BrowserRouter, Route } from "react-router-dom";
 import ShowDetails from "./components/ShowDetails";
 import TvShows from "./components/TvShows";
+import Registration from "./components/Registration";
 
 class App extends React.Component {
   state = {
@@ -80,6 +83,8 @@ class App extends React.Component {
               <TvShows searchQuery={this.state.query} {...props} />
             )}
           />
+
+          <Route path="/register" exact component={Registration} />
 
           <Footer />
         </div>

@@ -85,11 +85,13 @@ class NavBar extends React.Component {
               onClick={() => this.handleSearch()}
             />
             <a class="navText"> KIDS </a>
-            <img
-              src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/366be133850498.56ba69ac36858.png"
-              width="30"
-              className="imageKids"
-            ></img>
+            <Link to="/register">
+              <img
+                src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/366be133850498.56ba69ac36858.png"
+                width="30"
+                className="imageKids"
+              ></img>
+            </Link>
             <FormControl
               type="text"
               placeholder="Search"
